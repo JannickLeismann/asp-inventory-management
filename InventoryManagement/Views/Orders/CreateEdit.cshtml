@@ -1,0 +1,46 @@
+﻿@model Order
+
+<h1 class="mb-5">Create/Edit an order</h1>
+
+<form method="post" asp-controller="Orders" asp-action="CreateEdit">
+
+    <div>
+        <input hidden type="number" class="form-control" asp-for="Id" />
+    </div>
+
+    <div>
+        <label class="form-label" asp-for="OrderDate"></label>
+        <input type="date" class="form-control" asp-for="OrderDate" />
+        <span class="text-danger" asp-validation-for="OrderDate"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Save</button>
+
+</form>
+
+@if(Model.Id != 0)
+{
+    <partial name="_OrderItemsForm" model="Model" />
+} else
+{
+    <p>You have to save the order before you can add items.</p>
+}
+
+<h3 class="mt-5">Order Items</h3>
+<div class="list-group mb-5">
+    @foreach(var orderItem in Model.OrderItems)
+    {
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <p class="mb-1">@orderItem.Quantity x @orderItem.Item.Name</p>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

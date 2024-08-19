@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Item>
+
+<h1>All items</h1>
+
+<a class="btn btn-primary" asp-controller="Items" asp-action="CreateEdit">Create Item</a>
+
+<hr />
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Produkt</th>
+            <th>Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Item item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Stock</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-controller="Items" asp-action="CreateEdit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-sm btn-danger" asp-controller="Items" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
